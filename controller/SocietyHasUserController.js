@@ -2,12 +2,13 @@ const models = require('../models')
 const societyHasUserModel = models.society_has_user
 const SocietyHasUserSchema = require('./schema/SocietyHasUserSchema')
 class SocietyHasUserController {
+    endpoint = `society_has_user`
     constructor(app, validator) {
-        app.get('/society_has_user', async (req, res) => {
+        app.get(`/${this.endpoint}`, async (req, res) => {
             const societyHasUser = await societyHasUserModel.findAll()
             res.json(societyHasUser)
         })
-        app.post('/society_has_user', validator.body(SocietyHasUserSchema), async (req, res) => {
+        app.post(`/${this.endpoint}`, validator.body(SocietyHasUserSchema), async (req, res) => {
             const user = await societyHasUserModel.create(req.body)
             res.json(user)
         })
